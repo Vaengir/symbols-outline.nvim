@@ -1,6 +1,3 @@
-> [!NOTE]
-> Due to lack of time, this plugin has been archived.
-
 # symbols-outline.nvim
 
 **A tree like view for symbols in Neovim using the Language Server Protocol.
