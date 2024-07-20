@@ -1,7 +1,7 @@
 local M = {}
 
 function M.table_to_str(t)
-  local ret = ''
+  local ret = ""
   for _, value in ipairs(t) do
     ret = ret .. tostring(value)
   end
@@ -28,11 +28,9 @@ function M.array_copy(t)
   return ret
 end
 
-
 --- Deep copy a table, deeply excluding certain keys
 function M.deepcopy_excluding(t, keys)
   local res = {}
-    
   for key, value in pairs(t) do
     if not vim.tbl_contains(keys, key) then
       if type(value) == "table" then
@@ -42,7 +40,6 @@ function M.deepcopy_excluding(t, keys)
       end
     end
   end
-
   return res
 end
 

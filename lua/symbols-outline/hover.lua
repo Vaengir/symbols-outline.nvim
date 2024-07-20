@@ -1,4 +1,4 @@
-local so = require 'symbols-outline'
+local so = require("symbols-outline")
 local util = vim.lsp.util
 
 local M = {}
@@ -8,8 +8,8 @@ local function get_hover_params(node, winnr)
   local fn = vim.uri_from_bufnr(bufnr)
 
   return {
-    textDocument = { uri = fn },
-    position = { line = node.line, character = node.character },
+    textDocument = { uri = fn, },
+    position = { line = node.line, character = node.character, },
     bufnr = bufnr,
   }
 end
@@ -23,7 +23,7 @@ function M.show_hover()
 
   vim.lsp.buf_request(
     hover_params.bufnr,
-    'textDocument/hover',
+    "textDocument/hover",
     hover_params,
     ---@diagnostic disable-next-line: param-type-mismatch
     function(_, result, _, config)
@@ -34,12 +34,17 @@ function M.show_hover()
       local markdown_lines = util.convert_input_to_markdown_lines(
         result.contents
       )
-      markdown_lines = util.trim_empty_lines(markdown_lines)
-      if vim.tbl_isempty(markdown_lines) then
-        -- return { 'No information available' }
+      local lines = {}
+      for _, str in ipairs(markdown_lines) do
+        if str ~= "" then
+          lines.insert(result, str)
+        end
+      end
+      if vim.tbl_isempty(lines) then
+        -- return { "No information available", }
         return
       end
-      return util.open_floating_preview(markdown_lines, 'markdown', config)
+      return util.open_floating_preview(lines, "markdown", config)
     end
   )
 end

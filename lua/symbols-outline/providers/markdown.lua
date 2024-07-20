@@ -1,17 +1,17 @@
-local md_parser = require 'symbols-outline.markdown'
+local md_parser = require("symbols-outline.markdown")
 
 local M = {}
 
 -- probably change this
 function M.should_use_provider(bufnr)
-  return string.match(vim.api.nvim_buf_get_option(bufnr, 'ft'), 'markdown')
+  return string.match(vim.api.nvim_get_option_value("ft", { buf = bufnr, }), "markdown")
 end
 
 function M.hover_info(_, _, on_info)
   on_info(nil, {
     contents = {
-      kind = 'markdown',
-      contents = { 'No extra information availaible!' },
+      kind = "markdown",
+      contents = { "No extra information availaible!", },
     },
   })
 end

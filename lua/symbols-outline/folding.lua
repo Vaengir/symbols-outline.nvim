@@ -1,5 +1,6 @@
+local config = require("symbols-outline.config")
+
 local M = {}
-local config = require 'symbols-outline.config'
 
 M.is_foldable = function(node)
   return node.children and #node.children > 0
